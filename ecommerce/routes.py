@@ -98,3 +98,14 @@ def addToCart():
         return redirect(url_for('root'))
     else:
         return redirect(url_for('loginForm'))
+
+@app.route("/admin/products")
+def adminProducts():
+    loggedIn, firstName, productCountinKartForGivenUser = getLoginUserDetails()
+    allProductDetails = getAllProducts()
+    allProductsMassagedDetails = massageItemData(allProductDetails)
+    categoryData = getAllCategoryId()
+
+    return render_template('admin_products.html', itemData=allProductsMassagedDetails, loggedIn=loggedIn, firstName=firstName,
+                           productCountinKartForGivenUser=productCountinKartForGivenUser,
+                           categoryData=categoryData)
